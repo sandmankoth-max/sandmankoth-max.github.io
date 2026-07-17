@@ -1,55 +1,1701 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<title>KOTH</title>
+    <meta charset="UTF-8">
 
-<style>
-body{
-margin:0;
-background:#000;
-font-family:Arial,sans-serif;
-color:white;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-text-align:center;
-}
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-h1{
-font-size:70px;
-color:#d40000;
-margin-bottom:10px;
-}
+    <title>KOTH | King of the Hill</title>
 
-p{
-font-size:22px;
-max-width:650px;
-line-height:1.6;
-}
-</style>
+    <meta
+        name="description"
+        content="KOTH is a competitive mobile app where players compete in free weekly skill-based challenges, submit videos, climb the leaderboard, and compete for prizes."
+    >
 
+    <style>
+        :root {
+            --background: #000000;
+            --surface: #101010;
+            --surface-light: #181818;
+            --text: #ffffff;
+            --muted: #b9b9b9;
+            --red: #d40000;
+            --red-light: #ff2424;
+            --border: #303030;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--background);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.7;
+        }
+
+        a {
+            color: var(--red-light);
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.96);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-inner {
+            width: calc(100% - 40px);
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .brand {
+            color: var(--red);
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 18px;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .nav-links a:hover,
+        .nav-links a:focus-visible {
+            color: var(--red-light);
+        }
+
+        .hero {
+            min-height: calc(100vh - 70px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 70px 20px;
+            text-align: center;
+        }
+
+        .hero-inner {
+            width: 100%;
+            max-width: 850px;
+        }
+
+        .hero h1 {
+            margin: 0 0 12px;
+            color: var(--red);
+            font-size: clamp(72px, 16vw, 130px);
+            line-height: 0.95;
+            letter-spacing: 5px;
+        }
+
+        .tagline {
+            max-width: 760px;
+            margin: 0 auto 26px;
+            font-size: clamp(23px, 4vw, 34px);
+            font-weight: 800;
+            line-height: 1.3;
+        }
+
+        .hero-description {
+            max-width: 720px;
+            margin: 0 auto 36px;
+            color: #e8e8e8;
+            font-size: clamp(18px, 2.5vw, 22px);
+        }
+
+        .hero-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 14px;
+        }
+
+        .hero-links a {
+            display: inline-block;
+            padding: 12px 18px;
+            border: 1px solid var(--red);
+            border-radius: 8px;
+            color: var(--text);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .hero-links a:hover,
+        .hero-links a:focus-visible {
+            background: var(--red);
+        }
+
+        .support {
+            margin-top: 36px;
+            font-size: 17px;
+        }
+
+        .document-section {
+            padding: 80px 20px;
+            border-top: 1px solid var(--border);
+            scroll-margin-top: 80px;
+        }
+
+        .document-section:nth-of-type(odd) {
+            background: var(--surface);
+        }
+
+        .document {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .document h2 {
+            margin: 0 0 8px;
+            color: var(--red);
+            font-size: clamp(38px, 7vw, 58px);
+            line-height: 1.15;
+        }
+
+        .document h3 {
+            margin: 42px 0 10px;
+            color: var(--red-light);
+            font-size: 24px;
+        }
+
+        .dates {
+            margin-bottom: 28px;
+            color: var(--muted);
+        }
+
+        .notice {
+            margin: 25px 0;
+            padding: 18px 20px;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--red);
+            border-radius: 7px;
+            background: var(--surface-light);
+        }
+
+        .document p,
+        .document li {
+            font-size: 17px;
+        }
+
+        .document ul {
+            padding-left: 25px;
+        }
+
+        .all-caps {
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        footer {
+            padding: 36px 20px;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            text-align: center;
+            font-size: 14px;
+        }
+
+        footer p {
+            margin: 6px 0;
+        }
+
+        @media (max-width: 760px) {
+            .nav-inner {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .nav-links {
+                justify-content: flex-start;
+                gap: 10px 16px;
+            }
+
+            .document-section {
+                padding: 60px 20px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<div>
+    <nav aria-label="Main navigation">
+        <div class="nav-inner">
+            <a class="brand" href="#home">KOTH</a>
 
-<h1>KOTH</h1>
+            <div class="nav-links">
+                <a href="#terms">Terms</a>
+                <a href="#privacy">Privacy</a>
+                <a href="#rules">Official Rules</a>
+                <a href="mailto:support@playkoth.app">Support</a>
+            </div>
+        </div>
+    </nav>
 
-<p>
-King of the Hill is a competitive mobile app where players compete in weekly challenges.
-</p>
+    <main>
 
-<br>
+        <!-- HOME -->
 
-<p>
-For support, contact support@playkoth.app
-</p>
+        <section id="home" class="hero">
+            <div class="hero-inner">
 
-</div>
+                <h1>KOTH</h1>
+
+                <p class="tagline">
+                    Compete.<br>
+                    Film. Conquer.
+                </p>
+
+                <p class="hero-description">
+                    KOTH, or King of the Hill, is a competitive mobile
+                    app where players submit videos, climb the
+                    leaderboard, connect with friends, and compete
+                    in weekly skill-based challenges.
+                </p>
+
+                <div class="hero-links">
+                    <a href="#terms">Terms of Service</a>
+                    <a href="#privacy">Privacy Policy</a>
+                    <a href="#rules">Official Challenge Rules</a>
+                </div>
+
+                <p class="support">
+                    For questions or support, contact
+                    <a href="mailto:support@playkoth.app">
+                        support@playkoth.app
+                    </a>
+                </p>
+
+            </div>
+        </section>
+
+
+        <!-- TERMS OF SERVICE -->
+
+        <section id="terms" class="document-section">
+            <div class="document">
+
+                <h2>Terms of Service</h2>
+
+                <div class="dates">
+                    <div>
+                        <strong>Effective Date:</strong>
+                        July 17, 2026
+                    </div>
+
+                    <div>
+                        <strong>Last Updated:</strong>
+                        July 17, 2026
+                    </div>
+                </div>
+
+                <p class="notice">
+                    By creating an account, accessing, or using KOTH,
+                    you acknowledge that you have read and agree to
+                    these Terms of Service, the Privacy Policy, and
+                    the Official Challenge Rules.
+                </p>
+
+                <h3>1. Eligibility</h3>
+
+                <p>
+                    You must be at least 13 years old to create an
+                    account or use KOTH.
+                </p>
+
+                <p>
+                    If you are between 13 and 17 years old, you
+                    represent that you have permission from a parent
+                    or legal guardian to use KOTH, submit videos,
+                    participate in challenges, and receive any prize
+                    for which you may be eligible.
+                </p>
+
+                <p>
+                    KOTH may request reasonable information to verify
+                    a user's age, identity, eligibility, or parental
+                    permission before awarding a prize or continuing
+                    to provide access to the service.
+                </p>
+
+                <h3>2. Accounts</h3>
+
+                <p>
+                    You are responsible for providing accurate account
+                    information and maintaining the confidentiality of
+                    your login credentials.
+                </p>
+
+                <p>
+                    You may not create an account using false
+                    information, impersonate another person, share an
+                    account, or create multiple accounts to gain an
+                    unfair advantage.
+                </p>
+
+                <p>
+                    You are responsible for activity occurring through
+                    your account. Notify KOTH promptly if you believe
+                    your account has been accessed without permission.
+                </p>
+
+                <h3>3. Your Content</h3>
+
+                <p>
+                    You retain ownership of videos, profile photos,
+                    comments, and other content you submit to KOTH.
+                </p>
+
+                <p>
+                    You represent that you own your submitted content
+                    or have all rights, permissions, and consents
+                    necessary to submit and display it through KOTH.
+                    You may not submit content that infringes another
+                    person's copyright, trademark, privacy, publicity,
+                    or other rights.
+                </p>
+
+                <p>
+                    You should not record or submit a video containing
+                    another identifiable person unless you have that
+                    person's permission. If the person is a minor, you
+                    must have permission from the minor's parent or
+                    legal guardian.
+                </p>
+
+                <p>
+                    By submitting content, you grant KOTH a worldwide,
+                    non-exclusive, royalty-free license to host, store,
+                    reproduce, process, transcode, technically format,
+                    display, distribute, and make your content
+                    available within KOTH for the purposes of
+                    operating, moderating, promoting, and improving
+                    the service and administering competitions.
+                </p>
+
+                <p>
+                    This license continues for as long as reasonably
+                    necessary to operate KOTH, maintain backups,
+                    document competition results, resolve disputes,
+                    enforce agreements, or comply with applicable law.
+                </p>
+
+                <h3>4. Recording and Submission Integrity</h3>
+
+                <p>
+                    Challenge submissions must be captured live using
+                    the in-app camera unless the applicable challenge
+                    expressly states otherwise.
+                </p>
+
+                <p>
+                    Pre-recorded, edited, artificially generated,
+                    digitally manipulated, misleading, staged, or
+                    otherwise fraudulent challenge submissions are
+                    prohibited.
+                </p>
+
+                <p>
+                    KOTH may remove, reject, adjust, investigate, or
+                    disqualify any submission that appears inaccurate,
+                    manipulated, unsafe, unverifiable, misleading, or
+                    inconsistent with the applicable challenge
+                    requirements.
+                </p>
+
+                <h3>5. User Conduct</h3>
+
+                <p>You agree not to:</p>
+
+                <ul>
+                    <li>
+                        Cheat, manipulate results, misreport a value,
+                        or interfere with competition integrity.
+                    </li>
+
+                    <li>
+                        Use multiple accounts, bots, scripts,
+                        automated systems, exploits, or unauthorized
+                        software to gain an advantage.
+                    </li>
+
+                    <li>
+                        Impersonate, threaten, harass, bully, abuse,
+                        stalk, or defraud another person.
+                    </li>
+
+                    <li>
+                        Submit unlawful, hateful, sexually explicit,
+                        excessively violent, threatening, defamatory,
+                        or otherwise harmful content.
+                    </li>
+
+                    <li>
+                        Submit content depicting illegal conduct,
+                        weapons, controlled substances, or activity
+                        that creates an unreasonable risk of injury.
+                    </li>
+
+                    <li>
+                        Attempt to access another user's account or
+                        interfere with KOTH's systems, security, or
+                        operation.
+                    </li>
+
+                    <li>
+                        Collect, publish, or misuse another user's
+                        personal information.
+                    </li>
+
+                    <li>
+                        Use KOTH for unauthorized commercial activity,
+                        gambling, wagering, or any unlawful purpose.
+                    </li>
+                </ul>
+
+                <h3>6. Physical Safety</h3>
+
+                <p>
+                    Some KOTH challenges involve exercise, balance,
+                    endurance, coordination, athletic activity, or
+                    other physical activity.
+                </p>
+
+                <p>
+                    Participation is voluntary. You are responsible for
+                    evaluating your health, physical ability,
+                    surroundings, equipment, supervision, weather,
+                    surface conditions, and other relevant
+                    circumstances before attempting a challenge.
+                </p>
+
+                <p>
+                    Do not attempt a challenge if you are injured,
+                    impaired, medically restricted, unfamiliar with
+                    the activity, unable to perform it safely, or
+                    located in an unsafe environment.
+                </p>
+
+                <p>
+                    Never attempt a challenge while driving, near
+                    traffic, near an unprotected height, in or near
+                    dangerous water, around unsafe equipment, or in
+                    any location where participation could endanger
+                    you or another person.
+                </p>
+
+                <p>
+                    Stop immediately if you experience pain, dizziness,
+                    shortness of breath, weakness, loss of balance, or
+                    any other warning sign.
+                </p>
+
+                <p>
+                    Nothing in KOTH constitutes medical, health,
+                    fitness, athletic, or professional advice.
+                    Consult a qualified medical professional when
+                    appropriate.
+                </p>
+
+                <h3>7. Assumption of Risk</h3>
+
+                <p>
+                    Physical activities can involve inherent and
+                    unforeseen risks, including falls, collisions,
+                    strains, fractures, illness, property damage,
+                    serious injury, disability, or death.
+                </p>
+
+                <p>
+                    To the fullest extent permitted by law, you
+                    voluntarily assume the risks arising from your
+                    decision to attempt or participate in any
+                    challenge.
+                </p>
+
+                <p>
+                    A parent or legal guardian who permits a minor to
+                    use KOTH acknowledges the risks associated with
+                    the minor's participation and is responsible for
+                    deciding whether supervision or other precautions
+                    are appropriate.
+                </p>
+
+                <h3>8. Challenges and Prizes</h3>
+
+                <p>
+                    Participation in KOTH challenges is also governed
+                    by the Official Challenge Rules below, which are
+                    incorporated into these Terms.
+                </p>
+
+                <p>
+                    KOTH challenges offering prizes are intended to be
+                    skill-based competitions. No purchase or payment
+                    is required to enter or win.
+                </p>
+
+                <p>
+                    KOTH may verify submissions, correct reported
+                    values, resolve ties, determine eligibility,
+                    disqualify participants, withhold or revoke prizes,
+                    and modify, suspend, or cancel challenges as
+                    provided in the Official Challenge Rules.
+                </p>
+
+                <h3>9. Moderation and Enforcement</h3>
+
+                <p>
+                    KOTH may review, restrict, remove, preserve, or
+                    disclose content when reasonably necessary to
+                    operate the service, enforce these Terms, protect
+                    users, investigate misconduct, comply with law, or
+                    respond to a valid legal request.
+                </p>
+
+                <p>
+                    KOTH may warn, restrict, suspend, or permanently
+                    terminate an account that violates these Terms,
+                    the Official Challenge Rules, community standards,
+                    applicable law, or the integrity or safety of the
+                    service.
+                </p>
+
+                <p>
+                    KOTH is not required to monitor every submission,
+                    post, comment, or interaction and cannot guarantee
+                    that all inappropriate content will be identified
+                    or removed immediately.
+                </p>
+
+                <h3>10. Reports and Complaints</h3>
+
+                <p>
+                    Users may report inappropriate content, suspected
+                    cheating, safety concerns, intellectual-property
+                    violations, or other misconduct by contacting
+                    <a href="mailto:support@playkoth.app">
+                        support@playkoth.app
+                    </a>.
+                </p>
+
+                <p>
+                    Reports should contain enough information for KOTH
+                    to identify and evaluate the reported material or
+                    conduct.
+                </p>
+
+                <h3>11. Intellectual Property</h3>
+
+                <p>
+                    KOTH's software, design, features, graphics, logos,
+                    branding, text, and other service materials,
+                    excluding user content, are owned by or licensed
+                    to KOTH and are protected by applicable
+                    intellectual-property laws.
+                </p>
+
+                <p>
+                    You may not copy, reverse engineer, modify,
+                    distribute, sell, sublicense, or create derivative
+                    works from KOTH except as expressly permitted by
+                    applicable law.
+                </p>
+
+                <h3>12. Third-Party Services</h3>
+
+                <p>
+                    KOTH may depend on third-party hosting, storage,
+                    authentication, analytics, notification,
+                    communication, payment, or infrastructure
+                    providers.
+                </p>
+
+                <p>
+                    Your use of certain third-party services may also
+                    be governed by those providers' separate terms and
+                    privacy policies.
+                </p>
+
+                <h3>13. Availability and Changes to the Service</h3>
+
+                <p>
+                    KOTH may add, remove, suspend, modify, or
+                    discontinue features at any time.
+                </p>
+
+                <p>
+                    Access may occasionally be interrupted because of
+                    maintenance, technical failures, security
+                    concerns, legal requirements, or events outside
+                    KOTH's reasonable control.
+                </p>
+
+                <p>
+                    KOTH does not guarantee that the app, any
+                    challenge, or any particular feature will always
+                    be available, uninterrupted, secure, or
+                    error-free.
+                </p>
+
+                <h3>14. Disclaimer of Warranties</h3>
+
+                <p class="all-caps">
+                    To the fullest extent permitted by law, KOTH is
+                    provided on an "as is" and "as available" basis
+                    without warranties of any kind, whether express,
+                    implied, or statutory.
+                </p>
+
+                <p>
+                    KOTH does not guarantee the accuracy of user
+                    submissions, leaderboard information, comments,
+                    reported values, availability, or competition
+                    outcomes.
+                </p>
+
+                <h3>15. Limitation of Liability</h3>
+
+                <p class="all-caps">
+                    To the fullest extent permitted by law, KOTH and
+                    its owners, operators, administrators, contractors,
+                    service providers, and affiliates will not be
+                    liable for indirect, incidental, special,
+                    consequential, exemplary, or punitive damages, or
+                    for lost profits, lost data, or loss of goodwill,
+                    arising from or related to KOTH.
+                </p>
+
+                <p>
+                    To the fullest extent permitted by law, KOTH is
+                    not responsible for injury, illness, death,
+                    property damage, loss, or other harm resulting
+                    from a user's decision to attempt a challenge,
+                    disregard safety instructions, misuse the service,
+                    or rely on content submitted by another user.
+                </p>
+
+                <p>
+                    Nothing in these Terms excludes or limits liability
+                    that cannot legally be excluded or limited.
+                </p>
+
+                <h3>16. Indemnification</h3>
+
+                <p>
+                    To the fullest extent permitted by law, you agree
+                    to defend, indemnify, and hold harmless KOTH and
+                    its owners, operators, administrators, contractors,
+                    service providers, and affiliates from claims,
+                    liabilities, damages, losses, and reasonable costs
+                    arising from your content, your conduct, your
+                    misuse of the service, your violation of these
+                    Terms, or your violation of another person's
+                    rights.
+                </p>
+
+                <h3>17. Governing Law and Disputes</h3>
+
+                <p>
+                    These Terms are governed by the laws of the State
+                    of California, without regard to conflict-of-law
+                    principles.
+                </p>
+
+                <p>
+                    Any dispute arising from or relating to KOTH or
+                    these Terms will be subject to the jurisdiction of
+                    the state and federal courts located in
+                    California, unless applicable law requires
+                    otherwise.
+                </p>
+
+                <p>
+                    Before filing a formal legal claim, you agree to
+                    contact KOTH at
+                    <a href="mailto:support@playkoth.app">
+                        support@playkoth.app
+                    </a>
+                    and make a good-faith effort to resolve the
+                    dispute informally.
+                </p>
+
+                <h3>18. Changes to These Terms</h3>
+
+                <p>
+                    KOTH may update these Terms from time to time.
+                    When material changes are made, KOTH may provide
+                    notice through the app, the website, email, or
+                    another reasonable method.
+                </p>
+
+                <p>
+                    The updated Terms will state a revised Last Updated
+                    date. Continued use of KOTH after revised Terms
+                    become effective constitutes acceptance of the
+                    revised Terms, to the extent permitted by law.
+                </p>
+
+                <h3>19. Severability and No Waiver</h3>
+
+                <p>
+                    If any provision of these Terms is found
+                    unenforceable, the remaining provisions will
+                    remain in effect to the fullest extent permitted
+                    by law.
+                </p>
+
+                <p>
+                    KOTH's failure to enforce a provision does not
+                    waive its right to enforce that provision later.
+                </p>
+
+                <h3>20. Entire Agreement</h3>
+
+                <p>
+                    These Terms, the Privacy Policy, the Official
+                    Challenge Rules, and any challenge-specific
+                    instructions presented in KOTH form the agreement
+                    governing your use of KOTH.
+                </p>
+
+                <h3>21. Contact</h3>
+
+                <p>
+                    Questions about these Terms may be sent to:
+                    <br>
+                    <a href="mailto:support@playkoth.app">
+                        support@playkoth.app
+                    </a>
+                </p>
+
+            </div>
+        </section>
+
+
+        <!-- PRIVACY POLICY -->
+
+        <section id="privacy" class="document-section">
+            <div class="document">
+
+                <h2>Privacy Policy</h2>
+
+                <div class="dates">
+                    <div>
+                        <strong>Effective Date:</strong>
+                        July 17, 2026
+                    </div>
+
+                    <div>
+                        <strong>Last Updated:</strong>
+                        July 17, 2026
+                    </div>
+                </div>
+
+                <p class="notice">
+                    This Privacy Policy explains what information KOTH
+                    collects, how that information is used and shared,
+                    and the choices available to users.
+                </p>
+
+                <h3>1. Information We Collect</h3>
+
+                <p>
+                    Depending on how you use KOTH, we may collect the
+                    following categories of information:
+                </p>
+
+                <ul>
+                    <li>
+                        Account information, such as your username,
+                        display name, email address, date of birth,
+                        and age or parental-permission acknowledgment.
+                    </li>
+
+                    <li>
+                        Authentication information. Passwords are
+                        processed using secure authentication methods
+                        and are not intended to be stored in readable
+                        plaintext.
+                    </li>
+
+                    <li>
+                        Optional profile information, including a
+                        profile photograph.
+                    </li>
+
+                    <li>
+                        Videos, comments, likes, challenge entries,
+                        reported measurements, rankings, and other
+                        content you submit.
+                    </li>
+
+                    <li>
+                        Social information, such as friend requests,
+                        friendships, followers, or interactions with
+                        other users.
+                    </li>
+
+                    <li>
+                        Notification information, such as challenge
+                        announcements, deadline reminders, likes,
+                        comments, friend requests, verification
+                        results, and ranking changes.
+                    </li>
+
+                    <li>
+                        Support communications and other information
+                        you voluntarily provide when contacting KOTH.
+                    </li>
+
+                    <li>
+                        Technical and usage information that may be
+                        automatically generated when you use the app,
+                        such as device type, operating-system version,
+                        IP address, app activity, crash information,
+                        diagnostic information, and approximate access
+                        times.
+                    </li>
+                </ul>
+
+                <h3>2. How We Use Information</h3>
+
+                <p>KOTH may use information to:</p>
+
+                <ul>
+                    <li>Create, authenticate, and maintain accounts.</li>
+                    <li>Operate weekly challenges and leaderboards.</li>
+                    <li>Review and verify challenge submissions.</li>
+                    <li>Correct or confirm reported measurements.</li>
+                    <li>Determine rankings and prize eligibility.</li>
+                    <li>Deliver prizes and contact winners.</li>
+                    <li>Provide social features and activity feeds.</li>
+                    <li>Send service and competition notifications.</li>
+                    <li>Moderate content and enforce app rules.</li>
+                    <li>Detect fraud, cheating, abuse, and security threats.</li>
+                    <li>Respond to support requests and disputes.</li>
+                    <li>Maintain, analyze, secure, and improve KOTH.</li>
+                    <li>Comply with legal obligations and valid requests.</li>
+                </ul>
+
+                <h3>3. Videos and User Content</h3>
+
+                <p>
+                    Challenge videos and social posts are stored using
+                    KOTH's service providers and may be reviewed by
+                    authorized administrators.
+                </p>
+
+                <p>
+                    Signed-in users may be able to view leaderboard
+                    videos, profile information, reported values,
+                    comments, likes, and rankings.
+                </p>
+
+                <p>
+                    Friends may be able to view videos and other
+                    activity shared through the friends feed.
+                </p>
+
+                <p>
+                    Although storage systems may restrict direct public
+                    access, content displayed within the app should not
+                    be considered private if other users are permitted
+                    to view it.
+                </p>
+
+                <h3>4. Information Visible to Other Users</h3>
+
+                <p>
+                    Depending on your activity and app settings, the
+                    following information may be visible to other
+                    signed-in users:
+                </p>
+
+                <ul>
+                    <li>Username and display name.</li>
+                    <li>Profile photograph.</li>
+                    <li>Challenge submissions and videos.</li>
+                    <li>Reported or verified performance values.</li>
+                    <li>Leaderboard position and challenge history.</li>
+                    <li>Comments, likes, friendships, and social activity.</li>
+                </ul>
+
+                <p>
+                    Your date of birth, password, and private
+                    authentication information are not displayed on
+                    public leaderboards.
+                </p>
+
+                <h3>5. How Information May Be Shared</h3>
+
+                <p>KOTH may share information:</p>
+
+                <ul>
+                    <li>
+                        With other users as necessary to provide
+                        profiles, leaderboards, videos, comments,
+                        social feeds, and other app features.
+                    </li>
+
+                    <li>
+                        With service providers that assist with cloud
+                        hosting, data storage, authentication,
+                        notifications, analytics, security, support,
+                        communications, or prize administration.
+                    </li>
+
+                    <li>
+                        When reasonably necessary to investigate fraud,
+                        cheating, abuse, safety threats, or violations
+                        of these policies.
+                    </li>
+
+                    <li>
+                        When required by law, legal process, court
+                        order, or a valid government request.
+                    </li>
+
+                    <li>
+                        To protect the rights, safety, property, or
+                        security of KOTH, its users, or others.
+                    </li>
+
+                    <li>
+                        In connection with a merger, financing,
+                        acquisition, sale, restructuring, or transfer
+                        of all or part of the KOTH business or assets,
+                        subject to applicable law.
+                    </li>
+                </ul>
+
+                <p>
+                    KOTH does not sell personal information in exchange
+                    for money.
+                </p>
+
+                <h3>6. Prizes and Winner Verification</h3>
+
+                <p>
+                    KOTH may request information reasonably necessary
+                    to confirm a winner's identity, age, eligibility,
+                    parental permission, contact information, or
+                    payment information.
+                </p>
+
+                <p>
+                    Prize information may be shared with payment
+                    providers or other service providers as necessary
+                    to deliver a prize, document payment, prevent
+                    fraud, or comply with legal and tax obligations.
+                </p>
+
+                <h3>7. Data Retention</h3>
+
+                <p>
+                    KOTH retains information for as long as reasonably
+                    necessary to provide the service, administer
+                    competitions, maintain security, prevent fraud,
+                    resolve disputes, comply with legal obligations,
+                    and enforce its agreements.
+                </p>
+
+                <p>
+                    Some information may remain temporarily in backups
+                    or may be retained when necessary to document prize
+                    payments, competition results, moderation actions,
+                    fraud investigations, legal compliance, or
+                    disputes.
+                </p>
+
+                <h3>8. Account and Data Deletion</h3>
+
+                <p>
+                    Users may request deletion through any available
+                    in-app account-deletion feature or by contacting:
+                    <br>
+                    <a href="mailto:support@playkoth.app">
+                        support@playkoth.app
+                    </a>
+                </p>
+
+                <p>
+                    Deleting an account generally removes or
+                    deidentifies the user's profile, submissions,
+                    friendships, notifications, and related account
+                    information, subject to reasonable processing
+                    time and legal or operational retention
+                    requirements.
+                </p>
+
+                <p>
+                    Content already shared with or copied by other
+                    users may not be fully retrievable or removable
+                    from those users' possession.
+                </p>
+
+                <h3>9. Children's Privacy</h3>
+
+                <p>
+                    KOTH is not intended for children under 13, and
+                    users under 13 are not permitted to create an
+                    account.
+                </p>
+
+                <p>
+                    If KOTH learns that it collected personal
+                    information from a child under 13 without legally
+                    sufficient authorization, it may suspend the
+                    account and delete the information as required by
+                    applicable law.
+                </p>
+
+                <p>
+                    A parent or guardian who believes a child under 13
+                    has provided personal information may contact:
+                    <br>
+                    <a href="mailto:support@playkoth.app">
+                        support@playkoth.app
+                    </a>
+                </p>
+
+                <h3>10. Data Security</h3>
+
+                <p>
+                    KOTH uses reasonable administrative, technical,
+                    and organizational measures intended to protect
+                    user information.
+                </p>
+
+                <p>
+                    However, no storage system, network, transmission,
+                    or online service can guarantee absolute security.
+                    Users should maintain secure passwords and protect
+                    access to their devices and accounts.
+                </p>
+
+                <h3>11. Your Choices</h3>
+
+                <p>
+                    Depending on available app features, users may be
+                    able to:
+                </p>
+
+                <ul>
+                    <li>Update profile and account information.</li>
+                    <li>Choose whether to upload an optional profile photo.</li>
+                    <li>Manage certain notification settings.</li>
+                    <li>Delete content or request account deletion.</li>
+                    <li>Contact KOTH regarding privacy questions.</li>
+                </ul>
+
+                <h3>12. State Privacy Rights</h3>
+
+                <p>
+                    Residents of certain states may have rights
+                    concerning access, correction, deletion, or
+                    disclosure of personal information, subject to
+                    applicable legal exceptions.
+                </p>
+
+                <p>
+                    Requests may be submitted to
+                    <a href="mailto:support@playkoth.app">
+                        support@playkoth.app
+                    </a>.
+                    KOTH may take reasonable steps to verify the
+                    requester's identity before completing a request.
+                </p>
+
+                <h3>13. External Links and Services</h3>
+
+                <p>
+                    KOTH may contain links to external websites,
+                    payment services, or third-party services. Their
+                    privacy practices are governed by their own
+                    policies, not this Privacy Policy.
+                </p>
+
+                <h3>14. Changes to This Privacy Policy</h3>
+
+                <p>
+                    KOTH may update this Privacy Policy as its
+                    practices, services, or legal obligations change.
+                </p>
+
+                <p>
+                    Material updates may be communicated through the
+                    app, website, email, or another reasonable method.
+                    The Last Updated date will identify the current
+                    version.
+                </p>
+
+                <h3>15. Contact</h3>
+
+                <p>
+                    Questions or requests concerning this Privacy
+                    Policy may be sent to:
+                    <br>
+                    <a href="mailto:support@playkoth.app">
+                        support@playkoth.app
+                    </a>
+                </p>
+
+            </div>
+        </section>
+
+
+        <!-- OFFICIAL RULES -->
+
+        <section id="rules" class="document-section">
+            <div class="document">
+
+                <h2>Official Challenge Rules</h2>
+
+                <div class="dates">
+                    <div>
+                        <strong>Effective Date:</strong>
+                        July 17, 2026
+                    </div>
+
+                    <div>
+                        <strong>Last Updated:</strong>
+                        July 17, 2026
+                    </div>
+                </div>
+
+                <p class="notice">
+                    No purchase or payment is necessary to enter or
+                    win. KOTH challenges are skill-based competitions.
+                    A purchase will not improve a participant's chance
+                    of winning.
+                </p>
+
+                <h3>1. Sponsor and Administrator</h3>
+
+                <p>
+                    KOTH challenges are sponsored and administered by
+                    the developer and operator of KOTH, referred to in
+                    these rules as "KOTH."
+                </p>
+
+                <p>
+                    Apple Inc. is not a sponsor of, responsible for, or
+                    involved in KOTH challenges, competitions, prizes,
+                    judging, administration, or winner selection in
+                    any manner.
+                </p>
+
+                <h3>2. Agreement to the Rules</h3>
+
+                <p>
+                    By entering a KOTH challenge, you agree to these
+                    Official Challenge Rules, the Terms of Service,
+                    the Privacy Policy, and any instructions or
+                    criteria displayed for that particular challenge.
+                </p>
+
+                <p>
+                    If challenge-specific instructions conflict with
+                    these general rules, the challenge-specific
+                    instructions will control for that challenge,
+                    except where prohibited by law.
+                </p>
+
+                <h3>3. Eligibility</h3>
+
+                <p>
+                    You must be at least 13 years old and have a valid
+                    KOTH account to participate.
+                </p>
+
+                <p>
+                    If you are between 13 and 17 years old, you
+                    represent that you have permission from a parent
+                    or legal guardian to use KOTH, submit videos,
+                    participate in challenges, and receive a cash,
+                    gift-card, or other prize.
+                </p>
+
+                <p>
+                    A winner may be required to provide reasonable
+                    proof of identity, age, eligibility, parental
+                    permission, or compliance with these rules before
+                    receiving a prize.
+                </p>
+
+                <p>
+                    Challenges are void where prohibited or restricted
+                    by law. KOTH may exclude a participant or location
+                    when reasonably necessary to comply with
+                    applicable law.
+                </p>
+
+                <h3>4. Challenge Period</h3>
+
+                <p>
+                    Challenges generally begin Monday at 10:00 a.m.
+                    local time and close the following Sunday at
+                    5:00 p.m. local time.
+                </p>
+
+                <p>
+                    Exact start times, deadlines, prize information,
+                    judging criteria, and challenge requirements may
+                    vary. The in-app countdown and challenge page
+                    control for the active challenge.
+                </p>
+
+                <p>
+                    KOTH's systems and records are the official
+                    timekeeping method for determining whether an
+                    entry was timely received.
+                </p>
+
+                <h3>5. How to Enter</h3>
+
+                <p>
+                    To enter, an eligible user must complete the
+                    applicable challenge, record the attempt through
+                    the in-app camera, provide any requested
+                    measurement or information, and submit the entry
+                    before the deadline.
+                </p>
+
+                <p>
+                    No purchase, payment, subscription, or entry fee
+                    is required.
+                </p>
+
+                <h3>6. Number of Attempts</h3>
+
+                <p>
+                    Unless the challenge states otherwise, users may
+                    record and submit multiple attempts before the
+                    deadline.
+                </p>
+
+                <p>
+                    Only the user's most recent eligible submission
+                    will count toward the final leaderboard position,
+                    even if an earlier submission had a better
+                    reported result.
+                </p>
+
+                <h3>7. Recording Requirements</h3>
+
+                <p>
+                    Every challenge submission must be recorded live
+                    through the in-app camera unless the challenge
+                    expressly permits another method.
+                </p>
+
+                <p>
+                    Camera-roll uploads, pre-recorded videos, spliced
+                    footage, altered playback speed, hidden cuts,
+                    misleading camera angles, artificial
+                    intelligence-generated content, and other
+                    manipulated submissions are prohibited.
+                </p>
+
+                <p>
+                    Videos must clearly show enough of the attempt for
+                    KOTH to assess compliance, safety, timing, form,
+                    repetitions, distance, or other applicable
+                    criteria.
+                </p>
+
+                <h3>8. Submission Requirements</h3>
+
+                <p>Entries must:</p>
+
+                <ul>
+                    <li>Accurately depict the participant's attempt.</li>
+                    <li>Comply with the challenge instructions.</li>
+                    <li>Contain an accurate self-reported value.</li>
+                    <li>Be submitted through the participant's own account.</li>
+                    <li>Be captured before the challenge deadline.</li>
+                    <li>Comply with applicable law and these rules.</li>
+                    <li>
+                        Avoid infringing another person's intellectual
+                        property, privacy, or publicity rights.
+                    </li>
+                    <li>
+                        Avoid exposing private information or depicting
+                        another person without appropriate permission.
+                    </li>
+                </ul>
+
+                <h3>9. Skill-Based Winner Determination</h3>
+
+                <p>
+                    Winners are determined based on skill and the
+                    criteria described for the applicable challenge,
+                    such as verified time, repetitions, distance,
+                    accuracy, form, performance, or another objective
+                    or stated skill measure.
+                </p>
+
+                <p>
+                    Winners are not determined by random selection,
+                    chance, wagering, or payment.
+                </p>
+
+                <p>
+                    Community activity, comments, likes, or voting will
+                    not determine a winner unless a challenge
+                    specifically states that community evaluation is
+                    an announced judging criterion.
+                </p>
+
+                <h3>10. Verification and Administration</h3>
+
+                <p>
+                    Leaderboard positions may initially reflect
+                    values reported by users and remain provisional
+                    until verification is complete.
+                </p>
+
+                <p>
+                    KOTH administrators may review videos, compare
+                    reported values with recorded performance, correct
+                    measurements, request additional information, flag
+                    entries for follow-up, and disqualify entries.
+                </p>
+
+                <p>
+                    KOTH may delay final results while investigating
+                    suspected cheating, technical errors, duplicate
+                    accounts, safety issues, eligibility questions, or
+                    other concerns affecting competition integrity.
+                </p>
+
+                <h3>11. Ties</h3>
+
+                <p>
+                    If two or more eligible submissions have the same
+                    verified result, KOTH may resolve the tie by:
+                </p>
+
+                <ul>
+                    <li>Conducting a closer review of the videos.</li>
+                    <li>
+                        Applying an announced secondary skill-based
+                        criterion.
+                    </li>
+                    <li>
+                        Considering greater precision in the verified
+                        measurement, where available.
+                    </li>
+                    <li>Declaring a shared position.</li>
+                    <li>Dividing the applicable prize evenly.</li>
+                </ul>
+
+                <p>
+                    KOTH will not use a random drawing to resolve a tie
+                    in a skill-based challenge.
+                </p>
+
+                <h3>12. Prizes</h3>
+
+                <p>
+                    The prize amount or description for a challenge
+                    will be displayed in the app before that challenge
+                    closes.
+                </p>
+
+                <p>
+                    Prizes may differ between challenges. A prize has
+                    no cash equivalent unless KOTH expressly states
+                    otherwise.
+                </p>
+
+                <p>
+                    Prizes are not transferable except at KOTH's
+                    discretion and may not be substituted by a winner.
+                    KOTH may substitute a prize of equal or greater
+                    value when the advertised prize becomes
+                    unavailable for reasons outside KOTH's reasonable
+                    control.
+                </p>
+
+                <h3>13. Winner Notification and Prize Claims</h3>
+
+                <p>
+                    Potential winners may be contacted through the app,
+                    activity feed, push notification, email, or other
+                    contact information associated with their account.
+                </p>
+
+                <p>
+                    A potential winner may be required to respond,
+                    confirm payment details, verify eligibility, obtain
+                    parental permission, or complete other reasonable
+                    verification steps within the period specified by
+                    KOTH.
+                </p>
+
+                <p>
+                    Unless KOTH provides a different deadline, a winner
+                    must respond to a prize notification within 14
+                    calendar days.
+                </p>
+
+                <p>
+                    If a potential winner does not respond, cannot be
+                    contacted, provides inaccurate information, fails
+                    verification, declines the prize, or violates
+                    these rules, KOTH may revoke the prize and award
+                    it to the next eligible participant.
+                </p>
+
+                <h3>14. Prize Delivery</h3>
+
+                <p>
+                    Prizes are paid or delivered manually outside the
+                    app within a reasonable period after results are
+                    finalized and the winner completes any required
+                    verification.
+                </p>
+
+                <p>
+                    Delivery time may depend on the winner's response,
+                    payment method, identity verification, fraud
+                    review, parental permission, service-provider
+                    availability, and other reasonable administrative
+                    requirements.
+                </p>
+
+                <p>
+                    KOTH will maintain reasonable records of finalized
+                    rankings and prize delivery.
+                </p>
+
+                <h3>15. Taxes and Expenses</h3>
+
+                <p>
+                    Winners are responsible for taxes, fees, and
+                    expenses associated with accepting or using a
+                    prize, except where applicable law requires
+                    otherwise.
+                </p>
+
+                <p>
+                    KOTH may request tax or identification information
+                    and may issue tax documentation when required by
+                    law.
+                </p>
+
+                <h3>16. Disqualification</h3>
+
+                <p>
+                    KOTH may remove an entry, suspend an account,
+                    revoke a ranking, or withhold or recover a prize
+                    if KOTH reasonably determines that a participant:
+                </p>
+
+                <ul>
+                    <li>Submitted false or misleading information.</li>
+                    <li>Manipulated or edited a submission.</li>
+                    <li>Used a pre-recorded video.</li>
+                    <li>Misreported a performance value.</li>
+                    <li>Used multiple accounts or another person's account.</li>
+                    <li>Interfered with another participant.</li>
+                    <li>Used bots, exploits, or unauthorized software.</li>
+                    <li>Attempted to influence an administrator improperly.</li>
+                    <li>Engaged in dangerous or unlawful conduct.</li>
+                    <li>Violated these rules or the Terms of Service.</li>
+                    <li>
+                        Compromised or attempted to compromise the
+                        fairness, integrity, security, or operation of
+                        a challenge.
+                    </li>
+                </ul>
+
+                <h3>17. Safety</h3>
+
+                <p>
+                    Participants must use reasonable judgment and
+                    attempt challenges only under conditions that are
+                    appropriate for their health, experience,
+                    surroundings, and abilities.
+                </p>
+
+                <p>
+                    Participants must not trespass, violate laws,
+                    interfere with traffic, use unsafe equipment,
+                    endanger bystanders, or perform a challenge in a
+                    location that creates an unreasonable risk of
+                    harm.
+                </p>
+
+                <p>
+                    KOTH may reject or remove any entry that depicts or
+                    encourages unsafe conduct, regardless of the
+                    participant's result.
+                </p>
+
+                <h3>18. Technical Problems</h3>
+
+                <p>
+                    KOTH is not responsible for entries that are late,
+                    incomplete, corrupted, interrupted, misdirected,
+                    inaccessible, or not received because of internet
+                    failure, device failure, storage limitations,
+                    platform outages, software errors, or other
+                    technical problems.
+                </p>
+
+                <p>
+                    Participants are responsible for allowing enough
+                    time to record, upload, and submit an entry before
+                    the deadline.
+                </p>
+
+                <h3>19. Modification, Suspension, or Cancellation</h3>
+
+                <p>
+                    KOTH may modify, extend, postpone, suspend, or
+                    cancel a challenge when reasonably necessary
+                    because of fraud, cheating, technical failures,
+                    insufficient eligible entries, safety concerns,
+                    legal requirements, service outages, events beyond
+                    KOTH's reasonable control, or circumstances that
+                    prevent fair administration.
+                </p>
+
+                <p>
+                    If a challenge is modified or canceled, KOTH may
+                    determine an appropriate outcome based on eligible
+                    entries received before the disruption or may
+                    decline to award a prize where permitted by law.
+                </p>
+
+                <h3>20. Administrative Decisions</h3>
+
+                <p>
+                    KOTH's decisions concerning eligibility,
+                    verification, compliance, rankings, ties,
+                    disqualification, and prize administration are
+                    final to the fullest extent permitted by law.
+                </p>
+
+                <p>
+                    A participant who believes an administrative error
+                    occurred may contact
+                    <a href="mailto:support@playkoth.app">
+                        support@playkoth.app
+                    </a>
+                    with supporting information.
+                </p>
+
+                <h3>21. Release and Limitation of Liability</h3>
+
+                <p>
+                    To the fullest extent permitted by law,
+                    participants release KOTH and its owners,
+                    operators, administrators, contractors, service
+                    providers, and affiliates from claims arising from
+                    participation in a challenge or acceptance or use
+                    of a prize, except for liability that cannot
+                    legally be waived.
+                </p>
+
+                <p>
+                    Participation in physical activity is voluntary,
+                    and participants assume the risks associated with
+                    their own challenge attempts as described in the
+                    Terms of Service.
+                </p>
+
+                <h3>22. Privacy</h3>
+
+                <p>
+                    Information collected in connection with a
+                    challenge will be handled according to the KOTH
+                    Privacy Policy and may be used to verify entries,
+                    determine rankings, contact winners, deliver
+                    prizes, prevent fraud, and document competition
+                    results.
+                </p>
+
+                <h3>23. Changes to These Rules</h3>
+
+                <p>
+                    KOTH may revise these Official Challenge Rules.
+                    The Last Updated date identifies the current
+                    version.
+                </p>
+
+                <p>
+                    Material changes will not be applied retroactively
+                    in a manner that unfairly changes the announced
+                    winner-selection criteria for a challenge that has
+                    already closed, except when necessary to comply
+                    with law or address fraud or a material
+                    administrative error.
+                </p>
+
+                <h3>24. Contact</h3>
+
+                <p>
+                    Questions concerning a challenge or prize may be
+                    sent to:
+                    <br>
+                    <a href="mailto:support@playkoth.app">
+                        support@playkoth.app
+                    </a>
+                </p>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 KOTH. All rights reserved.</p>
+
+        <p>
+            <a href="#terms">Terms of Service</a>
+            &nbsp;|&nbsp;
+            <a href="#privacy">Privacy Policy</a>
+            &nbsp;|&nbsp;
+            <a href="#rules">Official Challenge Rules</a>
+        </p>
+
+        <p>
+            <a href="mailto:support@playkoth.app">
+                support@playkoth.app
+            </a>
+        </p>
+    </footer>
 
 </body>
-
 </html>
